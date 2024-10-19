@@ -1,99 +1,107 @@
-/* style.css */
-
 /* Global settings */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
-  }
-  
-  .header-section {
+}
+
+.header-section {
     position: relative;
-  }
-  
-  .carousel-item {
-    height: 100vh;
-  }
-  
-  .carousel-item img {
-    width: 70%;
-    height: 70%;
-    object-fit: cover;
-  }
-  
-  .carousel-caption {
+}
+
+.carousel-item {
+    height: 75vh;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+}
+
+.carousel-item-bg {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+.carousel-caption {
     position: absolute;
-    bottom: 20%;
+    bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
     color: white;
-  }
-  
-  .carousel-caption h1 {
-    font-size: 3rem;
-  }
-  
-  .carousel-caption p {
-    font-size: 1.5rem;
-  }
-  
-  /* Section styling (Religious Tourism, etc.) */
-  .section {
+    z-index: 2;
+    text-align: center;
+}
+
+.carousel-caption h1, .carousel-caption p {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
+
+.carousel-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black transparent overlay */
+    z-index: 1; /* Sits above the image but below captions */
+}
+
+/* Section styling (Religious Tourism, etc.) */
+.section {
     padding: 60px 0;
-  }
-  
-  .section img {
+}
+
+.section img {
     width: 100%;
     height: auto;
     border-radius: 10px;
-  }
-  
-  .section h2 {
+}
+
+.section h2 {
     margin-bottom: 20px;
-  }
-  
-  .section .content {
+}
+
+.section .content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 40px;
-  }
-  
-  .section .content img {
+}
+
+.section .content img {
     width: 45%;
-  }
-  
-  .section .content .text {
+}
+
+.section .content .text {
     width: 50%;
-  }
-  
-  .section.bg-light {
+}
+
+.section.bg-light {
     background-color: #f8f9fa;
-  }
-  
-  /* Adjustments for smaller screens */
-  @media (max-width: 768px) {
+}
+
+/* Adjustments for smaller screens */
+@media (max-width: 768px) {
     .section .content {
-      flex-direction: column;
-      text-align: center;
+        flex-direction: column;
+        text-align: center;
     }
-  
+
     .section .content img, .section .content .text {
-      width: 100%;
-      margin-bottom: 20px;
+        width: 100%;
+        margin-bottom: 20px;
     }
-  
+
     .carousel-caption {
-      bottom: 10%;
+        bottom: 20%;
     }
-  
+
     .carousel-caption h1 {
-      font-size: 2.5rem;
+        font-size: 2.5rem;
     }
-  
+
     .carousel-caption p {
-      font-size: 1.2rem;
+        font-size: 1.2rem;
     }
-  }
-  
+}

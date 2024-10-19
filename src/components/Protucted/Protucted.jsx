@@ -13,7 +13,7 @@ const Protected = ({ children }) => {
   // If the token exists, render the Navbar and children components
   return (
     <>
-      {/* <Navbar />  */}
+      <Navbar /> 
       {children}
     </>
   );

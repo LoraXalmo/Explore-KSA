@@ -12,6 +12,11 @@ import Profile from './components/Profile/Profile.jsx';
 import Notfoundpage from './components/Notfoundpage/Notfoundpage.jsx';
 import HomePage from './components/HomePage/HomePage.jsx';
 import Protected from './components/Protucted/Protucted.jsx';
+import TouristDestinations from './components/Tourist-Destinations/Tourist-Destinations.jsx';
+import TouristItineraries from './components/Tourist-Itineraries/Tourist-Itineraries.jsx';
+import Accommodation from './components/Accommodation/Accommodation.jsx';
+import Transportation from './components/Transportation/Transportation.jsx';
+import ReviewsOfUsers from './components/Reviews-of-Users/Reviews-of-Users.jsx';
 
 export default function App() {
   // Set up the router
@@ -22,22 +27,22 @@ export default function App() {
       children: [
         { index: true, element: <WelcomePage /> },
         { path: '/HomePage', element: <Protected><HomePage /></Protected> },
-
         { 
           path: '/login', 
           element: <RedirectIfAuthenticated><Login /></RedirectIfAuthenticated> 
-        },  
+        },
         { 
           path: '/signup', 
           element: <RedirectIfAuthenticated><Signup /></RedirectIfAuthenticated> 
         },
         { path: '/forgot-password', element: <ForgetPassword /> },
-      
-        {
-          path: '/profile', element: <Protected><Profile /></Protected>
-        },
-        {path:"*",element:<Notfoundpage/>}
-        
+        { path: '/profile', element: <Protected><Profile /></Protected> },
+        { path: '/Tourist-Destinations', element: <Protected><TouristDestinations /></Protected> },
+        { path: '/Tourist-Itineraries', element: <Protected><TouristItineraries /></Protected> },
+        { path: '/Accommodation', element: <Protected><Accommodation /></Protected> },
+        { path: '/Transportation', element: <Protected><Transportation /></Protected> },
+        { path: '/Reviews-of-Users', element: <Protected><ReviewsOfUsers /></Protected> },
+        { path: "*", element: <Notfoundpage /> }
       ]
     }
   ]);
@@ -45,7 +50,7 @@ export default function App() {
   return (
     <DataContextFunction>
       <RouterProvider router={router} />
-      
+      <ToastContainer /> {/* Include ToastContainer here if you need to display notifications */}
     </DataContextFunction>
   );
 }

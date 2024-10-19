@@ -1,67 +1,67 @@
 import React from 'react';
 import './Homepage.css'; // Don't forget to import your custom CSS
+import { Carousel } from 'react-bootstrap';
+
 import img1 from '../../images/1.jpeg';
 import img2 from '../../images/2.jpeg';
 import img3 from '../../images/3.png';
-import img4 from '../../images/4.jpeg'
-import img6 from '../../images/6.png'
+import img4 from '../../images/4.jpeg';
+import img6 from '../../images/6.png';
+
 const HomePage = () => {
   return (
     <div>
-
-      {/* Section 1: Bootstrap Carousel with 4 images and descriptions */}
       <section className="header-section">
-        <div id="tourismCarousel" className="carousel slide" data-ride="carousel">
-          <div className="carousel-inner">
-            {/* Slide 1 */}
-            <div className="carousel-item active">
-              <img src={img1}className="d-block w-100" alt="Slide 1" />
-              <div className="carousel-caption d-none d-md-block">
+        <Carousel id="carouselExampleControls" className="carousel-container">
+          <Carousel.Item>
+            <div className="carousel-item-bg" style={{ backgroundImage: `linear-gradient(
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.6)
+    ),url(${img1})` , backgroundPosition:"center",backgroundSize:"100% 100%" }}>
+              <div className="carousel-caption d-block">
                 <h1>Explore KSA</h1>
                 <p>Welcome to Explore the Wonders of Saudi Arabia</p>
               </div>
             </div>
+          </Carousel.Item>
 
-            {/* Slide 2 */}
-            <div className="carousel-item">
-              <img src={img2} className="d-block w-100" alt="Slide 2" />
-              <div className="carousel-caption d-none d-md-block">
+          <Carousel.Item>
+            <div className="carousel-item-bg" style={{ backgroundImage: `linear-gradient(
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.6)
+    ),url(${img2})` ,backgroundPosition:"center",backgroundSize:"100% 100%" }}>
+              <div className="carousel-caption d-block">
                 <h1>Religious Tourism</h1>
                 <p>Discover the spiritual richness of Makkah and Madinah.</p>
               </div>
             </div>
+          </Carousel.Item>
 
-            {/* Slide 3 */}
-            <div className="carousel-item">
-              <img src={img3} className="d-block w-100" alt="Slide 3" />
-              <div className="carousel-caption d-none d-md-block">
-                <h1>Recreational Tourism</h1>
-                <p>Experience the beauty of Riyadh's parks and Jeddah's Corniche.</p>
-              </div>
-            </div>
-
-            {/* Slide 4 */}
-            <div className="carousel-item">
-              <img src={img4} className="d-block w-100" alt="Slide 4" />
-              <div className="carousel-caption d-none d-md-block">
-                <h1>Festivals & Events</h1>
+          <Carousel.Item>
+            <div className="carousel-item-bg" style={{ backgroundImage: `linear-gradient(
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.6)
+    ),url(${img3})`,backgroundPosition:"center",backgroundSize:"100% 100%" }}>
+              <div className="carousel-caption d-block">
+                 <h1>Festivals & Events</h1>
+               
                 <p>Join the excitement of Riyadh Season's cultural festivities.</p>
               </div>
             </div>
+          </Carousel.Item>
 
-           
-          </div>
-
-          {/* Carousel Controls */}
-          <a className="carousel-control-prev" href="#tourismCarousel" role="button" data-slide="prev">
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span className="sr-only">Previous</span>
-          </a>
-          <a className="carousel-control-next" href="#tourismCarousel" role="button" data-slide="next">
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
-            <span className="sr-only">Next</span>
-          </a>
-        </div>
+          <Carousel.Item>
+            <div className="carousel-item-bg" style={{ backgroundImage: `linear-gradient(
+        rgba(0, 0, 0, 0.2),
+        rgba(0, 0, 0, 0.6)
+    ),url(${img4})` ,backgroundPosition:"center",backgroundSize:"100% 100%" }}>
+              <div className="carousel-caption d-block">
+              <h1>Recreational Tourism</h1>
+              <p>Experience the beauty of Riyadh's parks and Jeddah's Corniche.</p>
+              </div>
+            </div>
+          </Carousel.Item>
+        </Carousel>
       </section>
 
       {/* Section 2: Religious Tourism */}
@@ -90,15 +90,13 @@ const HomePage = () => {
         <div className="container">
           <h2 className="text-center mb-5">Recreational Tourism</h2>
           <div className="content">
-           
-            <img src={img4} alt="King fahd Park" />
+            <img src={img4} alt="King Fahd Park" />
             <div className="text">
               <h3 className="text-center text-dark">King Fahad Park - Riyadh</h3>
               <p className="text-center text-dark">King Fahad Park is one of the largest parks in Riyadh, offering recreational activities and a beautiful setting for families and visitors.</p>
             </div>
           </div>
           <div className="content">
-            
             <img src={img6} alt="Jeddah Corniche" />
             <div className="text">
               <h3 className="text-center text-dark">Corniche of Jeddah</h3>
@@ -120,7 +118,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
     </div>
   );
 };
