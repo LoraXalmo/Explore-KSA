@@ -28,7 +28,7 @@ export default function Signup() {
       setLoading(true);
       try {
         // إرسال البيانات إلى API
-        const response = await axios.post('http://localhost:4000/apis/user/signup', values);
+        const response = await axios.post('https://explore-ksa-backend.vercel.app/apis/user/signup', values);
         
         const { token } = response.data;
 
