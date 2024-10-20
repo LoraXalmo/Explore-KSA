@@ -85,7 +85,7 @@ export default function TouristItineraries() {
               </tbody>
             </Table>
           ) : (
-            <p>No user data available.</p>
+            <p className="text-center text-dark">Loading Tourist data....</p>
           )}
 
           {/* Formik form for itinerary */}
