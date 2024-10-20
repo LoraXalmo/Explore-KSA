@@ -45,7 +45,7 @@ export default function TouristDestinations() {
 
   return (
     <div className="container">
-      <h1 className="text-center my-4">Tourist Destinations in Saudi Arabia</h1>
+      <h2 className="text-center text-dark my-4">KSA Destinations</h2>
 
       {loading ? ( // Display loading spinner if loading
         <div className="d-flex justify-content-center align-items-center" style={{ height: '60vh' }}>
