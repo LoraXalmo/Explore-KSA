@@ -28,7 +28,10 @@ export default function DataContextFunction({ children }) {
           setUser(response.data);  // Set the user data in state
         } catch (error) {
           console.error("Error fetching user data", error);
+          setUser(null); // Clear user data on error
         }
+      } else {
+        setUser(null); // Clear user data if token is not present
       }
     };
 
@@ -38,12 +41,18 @@ export default function DataContextFunction({ children }) {
         setDestinations(response.data);  // Set the destinations in state
       } catch (error) {
         console.error("Error fetching destinations", error);
+        setDestinations([]); // Clear destinations on error
       }
     };
 
+    // Clear user and destinations on token change
+    setUser(null);
+    setDestinations([]);
+    
+    // Fetch new data
     fetchUserData();
     fetchDestinations();
-  }, [token]);
+  }, [token]); // Re-run this effect when the token changes
 
   return (
     <DataContext.Provider

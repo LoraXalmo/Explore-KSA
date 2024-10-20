@@ -2,14 +2,44 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Button, Form as BootstrapForm, Modal, Table, Spinner } from 'react-bootstrap';
-import { DataContext } from '../../context/context.js';  // Import the context
+import { DataContext } from '../../context/context.js'; // Import the context
 import axios from 'axios';
+import {jwtDecode} from "jwt-decode"; // Import jwt-decode
 
 export default function TouristItineraries() {
-  const { user, destinations } = useContext(DataContext);  // Get user and destinations from context
-  const [showModal, setShowModal] = useState(false);  // State for modal visibility
-  const [modalMessage, setModalMessage] = useState('');  // State for modal message
-  const [loading, setLoading] = useState(false);  // State for loading indicator
+  const { destinations } = useContext(DataContext); // Get destinations from context
+  const [user, setUser] = useState(null); // Local state for user
+  const [loading, setLoading] = useState(false); // State for loading indicator
+  const [showModal, setShowModal] = useState(false); // State for modal visibility
+  const [modalMessage, setModalMessage] = useState(''); // State for modal message
+
+  const token = localStorage.getItem('token'); // Get the token from localStorage
+
+  // Fetch user data based on token
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (token) {
+        try {
+          setLoading(true);
+          const decodedToken = jwtDecode(token); // Decode the token to get user ID
+          const userId = decodedToken?.id;
+
+          // Fetch user data
+          const response = await axios.get(`https://explore-ksa-backend.vercel.app/apis/user/users/${userId}`);
+          setUser(response.data); // Set user data in local state
+        } catch (error) {
+          console.error("Error fetching user data", error);
+          setUser(null); // Clear user data on error
+        } finally {
+          setLoading(false); // Stop loading spinner
+        }
+      } else {
+        setUser(null); // Clear user data if no token
+      }
+    };
+
+    fetchUserData();
+  }, [token]); // Trigger this effect when token changes
 
   const initialValues = {
     destinations: '',
@@ -26,31 +56,33 @@ export default function TouristItineraries() {
   });
 
   const handleSubmit = async (values, { resetForm }) => {
-    setLoading(true);  // Show loading spinner
+    setLoading(true); // Show loading spinner
     try {
-      const token = localStorage.getItem('token'); // Updated to 'token'
+      const token = localStorage.getItem('token'); // Get token
       const response = await axios.post(
         'https://explore-ksa-backend.vercel.app/api/itineraries',
         {
+          userId: user.data._id, // Use user ID from local state
           destinations: values.destinations,
           startDate: values.startDate,
           endDate: values.endDate,
           notes: values.notes
-        },
-        {
-          headers: {
-            'auth-token': token  // Send token in the headers
-          }
         }
       );
-      setModalMessage('Itinerary created successfully!');
+
+      if (response.status === 201) {
+        setModalMessage('Itinerary created successfully!');
+      } else {
+        setModalMessage('Failed to create itinerary.');
+      }
       setShowModal(true);
       resetForm();
     } catch (error) {
-      setModalMessage('Error creating itinerary.');
+      console.error("Error creating itinerary:", error.response ? error.response.data : error.message);
+      setModalMessage(error.response?.data?.message || 'Error creating itinerary.');
       setShowModal(true);
     } finally {
-      setLoading(false);  // Hide loading spinner
+      setLoading(false); // Hide loading spinner
     }
   };
 
@@ -61,7 +93,7 @@ export default function TouristItineraries() {
       {/* Loading Spinner */}
       {loading && (
         <div className="d-flex justify-content-center align-items-center" style={{ height: '50vh' }}>
-          <i className="fas fa-spinner fa-spin fa-3x"></i>
+          <Spinner animation="border" variant="primary" />
         </div>
       )}
 
