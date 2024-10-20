@@ -21,11 +21,7 @@ export default function DataContextFunction({ children }) {
           const userId = decodedToken?.id;  // Assuming 'id' is the field in the token that stores the user ID
 
           // Fetch user data by ID
-          const response = await axios.get(`https://explore-ksa-backend.vercel.app/apis/user/users/${userId}`, {
-            headers: {
-              'auth-token': token  // Send token in the headers
-            }
-          });
+          const response = await axios.get(`https://explore-ksa-backend.vercel.app/apis/user/users/${userId}`);
           console.log('====================================');
           console.log('response', response);
           console.log('====================================');
