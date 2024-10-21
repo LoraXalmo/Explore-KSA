@@ -5,60 +5,90 @@ import {jwtDecode} from "jwt-decode"; // Import jwt-decode
 export let DataContext = createContext();
 
 export default function DataContextFunction({ children }) {
-  const [user, setUser] = useState(null);  // User data
-  const [destinations, setDestinations] = useState([]);  // List of destinations
-  const token = localStorage.getItem('token'); // Get the token from localStorage (stored as 'token')
+  const [user, setUser] = useState(null); // User data
+  const [destinations, setDestinations] = useState([]); // List of destinations
+  const [accommodationPlaces, setAccommodationPlaces] = useState([]); // Places options
+  const [accommodationTypes, setAccommodationTypes] = useState([]); // Types options
+  const [selectedAccommodation, setSelectedAccommodation] = useState(null); // Selected accommodation
+  const [loading, setLoading] = useState(false); // Loading indicator
+  const token = localStorage.getItem("token"); // Get the token from localStorage (stored as 'token')
 
-  // Fetch user data and destinations
+  // Fetch user data, destinations, places, and types
   useEffect(() => {
     const fetchUserData = async () => {
       if (token) {
         try {
-          // Decode the token to get the user ID
           const decodedToken = jwtDecode(token);
-          console.log("decodedToken", decodedToken);
-          
-          const userId = decodedToken?.id;  // Assuming 'id' is the field in the token that stores the user ID
+          const userId = decodedToken?.id;
 
-          // Fetch user data by ID
           const response = await axios.get(`https://explore-ksa-backend.vercel.app/apis/user/users/${userId}`);
-          console.log('====================================');
-          console.log('response', response);
-          console.log('====================================');
-          setUser(response.data);  // Set the user data in state
+          setUser(response.data); // Set user data
         } catch (error) {
           console.error("Error fetching user data", error);
           setUser(null); // Clear user data on error
         }
       } else {
-        setUser(null); // Clear user data if token is not present
+        setUser(null);
       }
     };
 
     const fetchDestinations = async () => {
       try {
         const response = await axios.get("https://explore-ksa-backend.vercel.app/api/destinations");
-        setDestinations(response.data);  // Set the destinations in state
+        setDestinations(response.data); // Set destinations
       } catch (error) {
         console.error("Error fetching destinations", error);
         setDestinations([]); // Clear destinations on error
       }
     };
 
-    // Clear user and destinations on token change
+    const fetchAccommodationOptions = async () => {
+      try {
+        const [placesResponse, typesResponse] = await Promise.all([
+          axios.get("https://explore-ksa-backend.vercel.app/api/accommodation/accommodations/names"),
+          axios.get("https://explore-ksa-backend.vercel.app/api/accommodation/accommodations/types")
+        ]);
+
+        setAccommodationPlaces(placesResponse.data); // Set places options
+        setAccommodationTypes(typesResponse.data); // Set types options
+      } catch (error) {
+        console.error("Error fetching accommodation options", error);
+        setAccommodationPlaces([]);
+        setAccommodationTypes([]);
+      }
+    };
+
     setUser(null);
     setDestinations([]);
-    
-    // Fetch new data
     fetchUserData();
     fetchDestinations();
-  }, [token]); // Re-run this effect when the token changes
+    fetchAccommodationOptions();
+  }, [token]);
+
+  // Fetch selected accommodation details
+  const fetchAccommodationData = async (place, type) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`https://explore-ksa-backend.vercel.app/api/accommodation/getdata?name=${place}&type=${type}`);
+      setSelectedAccommodation(response.data[0]);
+    } catch (error) {
+      console.error("Error fetching accommodation data", error);
+      setSelectedAccommodation(null);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <DataContext.Provider
       value={{
         user,
-        destinations
+        destinations,
+        accommodationPlaces,
+        accommodationTypes,
+        selectedAccommodation,
+        fetchAccommodationData,
+        loading
       }}
     >
       {children}
