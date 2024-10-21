@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode"; // Import jwt-decode
+import { jwtDecode } from "jwt-decode"; // Import jwt-decode
 
 export let DataContext = createContext();
 
@@ -10,22 +10,23 @@ export default function DataContextFunction({ children }) {
   const [accommodationPlaces, setAccommodationPlaces] = useState([]); // Places options
   const [accommodationTypes, setAccommodationTypes] = useState([]); // Types options
   const [selectedAccommodation, setSelectedAccommodation] = useState(null); // Selected accommodation
+  const [transportationTypes, setTransportationTypes] = useState([]); // List of transportation types
+  const [selectedTransportation, setSelectedTransportation] = useState(null); // Selected transportation details
   const [loading, setLoading] = useState(false); // Loading indicator
-  const token = localStorage.getItem("token"); // Get the token from localStorage (stored as 'token')
+  const token = localStorage.getItem("token"); // Get the token from localStorage
 
-  // Fetch user data, destinations, places, and types
+  // Fetch user data, destinations, accommodation places, types, and transportation types
   useEffect(() => {
     const fetchUserData = async () => {
       if (token) {
         try {
           const decodedToken = jwtDecode(token);
           const userId = decodedToken?.id;
-
           const response = await axios.get(`https://explore-ksa-backend.vercel.app/apis/user/users/${userId}`);
-          setUser(response.data); // Set user data
+          setUser(response.data);
         } catch (error) {
           console.error("Error fetching user data", error);
-          setUser(null); // Clear user data on error
+          setUser(null);
         }
       } else {
         setUser(null);
@@ -35,10 +36,10 @@ export default function DataContextFunction({ children }) {
     const fetchDestinations = async () => {
       try {
         const response = await axios.get("https://explore-ksa-backend.vercel.app/api/destinations");
-        setDestinations(response.data); // Set destinations
+        setDestinations(response.data);
       } catch (error) {
         console.error("Error fetching destinations", error);
-        setDestinations([]); // Clear destinations on error
+        setDestinations([]);
       }
     };
 
@@ -48,13 +49,22 @@ export default function DataContextFunction({ children }) {
           axios.get("https://explore-ksa-backend.vercel.app/api/accommodation/accommodations/names"),
           axios.get("https://explore-ksa-backend.vercel.app/api/accommodation/accommodations/types")
         ]);
-
-        setAccommodationPlaces(placesResponse.data); // Set places options
-        setAccommodationTypes(typesResponse.data); // Set types options
+        setAccommodationPlaces(placesResponse.data);
+        setAccommodationTypes(typesResponse.data);
       } catch (error) {
         console.error("Error fetching accommodation options", error);
         setAccommodationPlaces([]);
         setAccommodationTypes([]);
+      }
+    };
+
+    const fetchTransportationTypes = async () => {
+      try {
+        const response = await axios.get("https://explore-ksa-backend.vercel.app/api/transportation/types");
+        setTransportationTypes(response.data);
+      } catch (error) {
+        console.error("Error fetching transportation types", error);
+        setTransportationTypes([]);
       }
     };
 
@@ -63,6 +73,7 @@ export default function DataContextFunction({ children }) {
     fetchUserData();
     fetchDestinations();
     fetchAccommodationOptions();
+    fetchTransportationTypes();
   }, [token]);
 
   // Fetch selected accommodation details
@@ -79,6 +90,20 @@ export default function DataContextFunction({ children }) {
     }
   };
 
+  // Fetch selected transportation details
+  const fetchTransportationData = async (type) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`https://explore-ksa-backend.vercel.app/api/transportation/type/${type}`);
+      setSelectedTransportation(response.data[0]);
+    } catch (error) {
+      console.error("Error fetching transportation data", error);
+      setSelectedTransportation(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <DataContext.Provider
       value={{
@@ -88,7 +113,10 @@ export default function DataContextFunction({ children }) {
         accommodationTypes,
         selectedAccommodation,
         fetchAccommodationData,
-        loading
+        loading,
+        transportationTypes,
+        selectedTransportation,
+        fetchTransportationData
       }}
     >
       {children}
