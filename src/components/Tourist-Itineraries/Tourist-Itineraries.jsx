@@ -26,8 +26,8 @@ export default function TouristItineraries() {
           const userId = decodedToken?.id;
 
           // Fetch user data
-          const response = await axios.get(`https://explore-ksa-backend.vercel.app/apis/user/users/${userId}`);
-          setUser(response.data); // Set user data in local state
+          const response = await axios.get(`https://explore-ksa-backend.vercel.app/apis/user/userdata/${userId}`);
+          setUser(response.data.user); // Set user data in local state
         } catch (error) {
           console.error("Error fetching user data", error);
           setUser(null); // Clear user data on error
@@ -116,8 +116,8 @@ export default function TouristItineraries() {
               </thead>
               <tbody>
                 <tr>
-                  <td>{user?.data?.name}</td>
-                  <td>{user?.data?.email}</td>
+                  <td>{user?.name}</td>
+                  <td>{user?.email}</td>
                 </tr>
               </tbody>
             </Table>

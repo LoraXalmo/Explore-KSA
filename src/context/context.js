@@ -22,8 +22,9 @@ export default function DataContextFunction({ children }) {
         try {
           const decodedToken = jwtDecode(token);
           const userId = decodedToken?.id;
-          const response = await axios.get(`https://explore-ksa-backend.vercel.app/apis/user/users/${userId}`);
-          setUser(response.data);
+          const response = await axios.get(`https://explore-ksa-backend.vercel.app/apis/user/userdata/${userId}`);
+          console.log("User data", response.data);
+          setUser(response.data.user);
         } catch (error) {
           console.error("Error fetching user data", error);
           setUser(null);
@@ -115,19 +116,7 @@ export default function DataContextFunction({ children }) {
       setLoading(false);
     }
   };
-//   const deleteAccount = async (accountId) => {
-//     try {
-//         await axios.delete(`${API_ENDPOINTS.deleteAccount}/${accountId}`);
-//         setPopupStatus('success');
-//         setPopupMessage('Account deleted successfully!');
-//         setPopupVisible(true);
-//         await fetchAllAccounts(); // تحديث الحسابات بعد الحذف
-//     } catch (error) {
-//         setPopupStatus('error');
-//         setPopupMessage(error.response?.data?.message || 'Error deleting account!');
-//         setPopupVisible(true);
-//     }
-// };
+
   return (
     <DataContext.Provider
       value={{
