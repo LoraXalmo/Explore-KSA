@@ -103,7 +103,18 @@ export default function DataContextFunction({ children }) {
       setLoading(false);
     }
   };
-
+  const postReview = async (reviewData) => {
+    try {
+      setLoading(true);
+      const response = await axios.post("https://explore-ksa-backend.vercel.app/api/reviwews", reviewData);
+      return response.data;
+    } catch (error) {
+      console.error("Error posting review", error);
+      return null;
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <DataContext.Provider
       value={{
@@ -116,7 +127,8 @@ export default function DataContextFunction({ children }) {
         loading,
         transportationTypes,
         selectedTransportation,
-        fetchTransportationData
+        fetchTransportationData,
+        postReview
       }}
     >
       {children}
