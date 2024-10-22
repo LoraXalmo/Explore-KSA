@@ -28,7 +28,7 @@ export default function ReviewsofUsers() {
       return;
     }
     const reviewData = {
-      user: user.data._id, // Taking user ID from the decoded token stored in the context
+      user: user._id, // Taking user ID from the decoded token stored in the context
       rating: values.rating,
       comment: values.comment,
       reviewFor: values.reviewFor,
