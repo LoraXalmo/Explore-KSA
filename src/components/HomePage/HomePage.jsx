@@ -7,10 +7,15 @@ import img2 from '../../images/2.jpeg';
 import img3 from '../../images/3.png';
 import img4 from '../../images/4.jpeg';
 import img6 from '../../images/6.png';
+import { Helmet } from 'react-helmet';
 
 const HomePage = () => {
   return (
     <div>
+        <Helmet>
+        <title>HomePage</title>
+        <meta name="description" content="Explore KSA HomePage" />
+      </Helmet>
       <section className="header-section">
         <Carousel id="carouselExampleControls" className="carousel-container">
           <Carousel.Item>

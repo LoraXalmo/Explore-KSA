@@ -6,6 +6,7 @@ import axios from 'axios';
 import { Button, Spinner, Alert, Modal } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { Helmet } from 'react-helmet';
 
 // Validation Schema using Yup
 const AccommodationSchema = Yup.object().shape({
@@ -34,6 +35,10 @@ export default function Accommodation() {
 
   return (
     <div className="container mt-4">
+          <Helmet>
+        <title>HomePage</title>
+        <meta name="description" content="Explore KSA HomePage" />
+      </Helmet>
       <h2 className='my-3 text-center'>Book Your Accommodation</h2>
 
       {/* Formik form */}

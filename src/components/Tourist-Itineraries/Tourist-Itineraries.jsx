@@ -5,6 +5,7 @@ import { Button, Form as BootstrapForm, Modal, Table, Spinner } from 'react-boot
 import { DataContext } from '../../context/context.js'; // Import the context
 import axios from 'axios';
 import {jwtDecode} from "jwt-decode"; // Import jwt-decode
+import { Helmet } from 'react-helmet';
 
 export default function TouristItineraries() {
   const { destinations } = useContext(DataContext); // Get destinations from context
@@ -88,6 +89,10 @@ export default function TouristItineraries() {
 
   return (
     <div className="container">
+      <Helmet>
+        <title>TouristItineraries</title>
+        <meta name="description" content="Explore KSA TouristItineraries" />
+      </Helmet>
       <h2 className="text-center text-dark mt-3">Tourist Itineraries</h2>
 
       {/* Loading Spinner */}

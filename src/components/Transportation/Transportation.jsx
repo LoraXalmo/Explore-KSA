@@ -6,6 +6,7 @@ import axios from "axios";
 import { Spinner, Button, Form as BootstrapForm, Col, Row, Modal } from "react-bootstrap"; // Import Modal
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Transportation.css"; // Import custom CSS
+import { Helmet } from "react-helmet";
 
 export default function Transportation() {
   const { transportationTypes, fetchTransportationData, selectedTransportation, loading } = useContext(DataContext);
@@ -48,6 +49,10 @@ export default function Transportation() {
 
   return (
     <div className="container mt-5">
+        <Helmet>
+        <title>Transportation</title>
+        <meta name="description" content="Explore KSA Transportation" />
+      </Helmet>
       <h2 className="text-center">Select Transportation</h2>
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
         {({ isSubmitting, setFieldValue }) => (

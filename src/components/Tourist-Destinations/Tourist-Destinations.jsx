@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import "./touristdest.css"
+import { Helmet } from 'react-helmet';
 export default function TouristDestinations() {
   const [destinations, setDestinations] = useState([]);
   const [selectedDestination, setSelectedDestination] = useState(null);
@@ -45,6 +46,10 @@ export default function TouristDestinations() {
 
   return (
     <div className="container">
+      <Helmet>
+        <title>Destination</title>
+        <meta name="description" content="Explore KSA Destination" />
+      </Helmet>
       <h2 className="text-center text-dark my-4">KSA Destinations</h2>
 
       {loading ? ( // Display loading spinner if loading

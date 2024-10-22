@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FaStar } from "react-icons/fa";
 import * as Yup from "yup";
 import { Alert, Button, Spinner } from "react-bootstrap";
+import { Helmet } from "react-helmet";
 
 export default function ReviewsofUsers() {
   const { postReview, user, loading } = useContext(DataContext);
@@ -46,7 +47,10 @@ export default function ReviewsofUsers() {
   return (
     <div className="container mt-5">
       <h2>Submit Your Review</h2>
-
+      <Helmet>
+        <title>Reviews</title>
+        <meta name="description" content="Explore KSA Reviews" />
+      </Helmet>
       {/* Show success or error messages */}
       {successMessage && <Alert variant="success">{successMessage}</Alert>}
       {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
