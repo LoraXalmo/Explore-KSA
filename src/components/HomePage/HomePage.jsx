@@ -135,13 +135,7 @@ with the Levant and Europe.
               </p>
             </div>
           </div>
-          <div className="content">
-            <img src={img6} alt="Jeddah Corniche" />
-            <div className="text">
-              <h3 className="text-center text-dark">Corniche of Jeddah</h3>
-              <p className="text-center text-dark">The Jeddah Corniche is a stunning waterfront area in Jeddah, offering a vibrant atmosphere with a mix of shopping, dining, and entertainment options.</p>
-            </div>
-          </div>
+        
         </div>
         {/* two */}
         <div className="container">
@@ -160,13 +154,7 @@ heritage. Al-Balad is a must-see for anyone seeking an
 unforgettable blend of history, art, and local charm.</p>
             </div>
           </div>
-          <div className="content">
-            <img src={img6} alt="Jeddah Corniche" />
-            <div className="text">
-              <h3 className="text-center text-dark">Corniche of Jeddah</h3>
-              <p className="text-center text-dark">The Jeddah Corniche is a stunning waterfront area in Jeddah, offering a vibrant atmosphere with a mix of shopping, dining, and entertainment options.</p>
-            </div>
-          </div>
+         
         </div>
       </section>
 
@@ -207,13 +195,11 @@ and rose water, and celebrated annually in the Taif Rose Festival.</p>
             <img src={img55} alt="Riyadh Season" />
           <div className="text">
           <h2 className="text-center mb-5">Red Sea</h2>
-            <p className="text-center text-dark">Taif, located in the Makkah Province of Saudi Arabia at 1,879
-meters on the slopes of the Hijaz Mountains, is a city known for
-its pleasant climate and rich history. Historically significant in
-both pre-Islamic and Islamic eras, Taif is especially famous for
-its Taif roses, which thrive in its cooler temperatures. These
-fragrant roses are central to the local economy, used in perfumes
-and rose water, and celebrated annually in the Taif Rose Festival.</p>
+            <p className="text-center text-dark">The Red Sea is a breathtaking paradise with crystal-
+clear waters, vibrant coral reefs. Perfect for diving and
+water sports, it offers an unforgettable experience for
+adventurers. Rich in both natural beauty and historical
+charm, it's a coastal gem waiting to be explored.</p>
           </div>
           </div>
         </div>
