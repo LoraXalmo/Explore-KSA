@@ -3,25 +3,33 @@ import { DataContext } from "../../context/context.js";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { Spinner, Button, Form as BootstrapForm, Col, Row, Modal } from "react-bootstrap"; // Import Modal
+import { Spinner, Button, Form as BootstrapForm, Col, Row, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Transportation.css"; // Import custom CSS
+import "./Transportation.css";
 import { Helmet } from "react-helmet";
+import {jwtDecode} from "jwt-decode";
 
 export default function Transportation() {
   const { transportationTypes, fetchTransportationData, selectedTransportation, loading } = useContext(DataContext);
   const [transportationDetails, setTransportationDetails] = useState(null);
-  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [showModal, setShowModal] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loadingg, setLoadingg] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUser({ name: decodedToken?.name, email: decodedToken?.email });
+    }
     if (selectedTransportation) {
       setTransportationDetails(selectedTransportation);
     }
   }, [selectedTransportation]);
 
   const initialValues = {
-    touristName: "",
-    email: "",
+    touristName: user?.name || "",
+    email: user?.email || "",
     phone: "",
     typeTransportation: "",
   };
@@ -36,7 +44,7 @@ export default function Transportation() {
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
       await axios.post("https://explore-ksa-backend.vercel.app/api/touriststransportation", values);
-      setShowModal(true); // Show modal on success
+      setShowModal(true);
     } catch (error) {
       console.error("Error submitting transportation", error);
       alert("Error submitting transportation. Please try again.");
@@ -45,27 +53,32 @@ export default function Transportation() {
     }
   };
 
-  const handleCloseModal = () => setShowModal(false); // Close modal handler
+  const handleCloseModal = () => setShowModal(false);
 
   return (
     <div className="container mt-5">
-        <Helmet>
+      <Helmet>
         <title>Transportation</title>
         <meta name="description" content="Explore KSA Transportation" />
       </Helmet>
       <h2 className="text-center">Select Transportation</h2>
-      <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={handleSubmit}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+        enableReinitialize
+      >
         {({ isSubmitting, setFieldValue }) => (
           <Form>
             <BootstrapForm.Group as={Row} className="mb-3">
               <Col>
                 <BootstrapForm.Label>Name</BootstrapForm.Label>
-                <Field name="touristName" type="text" className="form-control" />
+                <Field name="touristName" type="text" className="form-control" disabled />
                 <ErrorMessage name="touristName" component="div" className="text-danger" />
               </Col>
               <Col>
                 <BootstrapForm.Label>Email</BootstrapForm.Label>
-                <Field name="email" type="email" className="form-control" />
+                <Field name="email" type="email" className="form-control" disabled />
                 <ErrorMessage name="email" component="div" className="text-danger" />
               </Col>
             </BootstrapForm.Group>
@@ -84,7 +97,7 @@ export default function Transportation() {
                   className="form-control"
                   onChange={(e) => {
                     setFieldValue("typeTransportation", e.target.value);
-                    fetchTransportationData(e.target.value); // Fetch type details on select
+                    fetchTransportationData(e.target.value);
                   }}
                 >
                   <option value="">Select Transportation</option>
@@ -107,7 +120,6 @@ export default function Transportation() {
             ) : (
               transportationDetails && (
                 <div className="mt-3 text-center">
-
                   <div className="row">
                     {transportationDetails.images.map((image, index) => (
                       <div key={index} className="col-md-4">
@@ -116,14 +128,14 @@ export default function Transportation() {
                     ))}
                   </div>
                   <h4>Transportation Details</h4>
-                  <p className="text-dark ">
+                  <p className="text-dark">
                     <strong>Provider:</strong> {transportationDetails.providerName}
                   </p>
-                  <p className="text-dark ">
+                  <p className="text-dark">
                     <strong>Contact:</strong> {transportationDetails.contactInfo}
                   </p>
-                  <p className="text-dark ">
-                    <strong>Price:</strong> SAR{transportationDetails.price}
+                  <p className="text-dark">
+                    <strong>Price:</strong> SAR {transportationDetails.price}
                   </p>
                 </div>
               )
@@ -138,14 +150,12 @@ export default function Transportation() {
         )}
       </Formik>
 
-      {/* Modal for showing result */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Transportation Selected</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p className="text-dark ">Your transportation has been successfully selected!</p>
-  
+          <p className="text-dark">Your transportation has been successfully selected!</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>

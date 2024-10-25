@@ -39,6 +39,10 @@ export default function TouristDestinations() {
         return 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3631.5137902389138!2d39.60649147087146!3d24.467648712679953!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15bdbfaa728d4c15%3A0x39c9cca9e8b98e2f!2sAl%20Masjid%20an%20Nabawi!5e0!3m2!1sen!2seg!4v1729435798573!5m2!1sen!2seg';
       case 'New Jeddah Corniche':
         return 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14837.998151337864!2d39.096980232265146!3d21.605449783322452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15c3dbaea8c06d51%3A0xa8f1e399d6cd9dd3!2sNew%20Jeddah%20Corniche!5e0!3m2!1sen!2seg!4v1729435849637!5m2!1sen!2seg';
+        case 'AlUla':
+          return 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d18506.10133164262!2d37.92213670559581!3d26.59918055762033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15a5ab96a9136819%3A0x39bae58691885d6!2sAlUla%20Saudi%20Arabia!5e0!3m2!1sen!2seg!4v1729881472971!5m2!1sen!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade'
+          case 'Taif' :
+            return 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d475534.2561924121!2d40.24627411034552!3d21.385518794086124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x15e98eccb0a33f2f%3A0xfa3fe5e1341fa2a7!2sTaif%20Saudi%20Arabia!5e0!3m2!1sen!2seg!4v1729881681915!5m2!1sen!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade'
       default:
         return ''; // Default case
     }

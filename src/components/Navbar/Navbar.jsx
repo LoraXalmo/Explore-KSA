@@ -64,10 +64,10 @@ const Navbar = () => {
               <Link className={`${getLinkClass("/HomePage")} text-light`} to="/HomePage">Home</Link>
             </li>
             <li className="nav-item">
-              <Link className={`${getLinkClass("/Tourist-Destinations")} text-light`} to="/Tourist-Destinations">Tourist Destinations</Link>
+              <Link className={`${getLinkClass("/Tourist-Destinations")} text-light`} to="/Tourist-Destinations">Destinations</Link>
             </li>
             <li className="nav-item">
-              <Link className={`${getLinkClass("/Tourist-Itineraries")} text-light`} to="/Tourist-Itineraries">Tourist Itineraries</Link>
+              <Link className={`${getLinkClass("/Tourist-Itineraries")} text-light`} to="/Tourist-Itineraries">Itineraries</Link>
             </li>
             <li className="nav-item">
               <Link className={`${getLinkClass("/Accommodation")} text-light`} to="/Accommodation">Accommodation</Link>
@@ -76,7 +76,7 @@ const Navbar = () => {
               <Link className={`${getLinkClass("/Transportation")} text-light`} to="/Transportation">Transportation</Link>
             </li>
             <li className="nav-item">
-              <Link className={`${getLinkClass("/Reviews-of-Users")} text-light`} to="/Reviews-of-Users">Reviews of Users</Link>
+              <Link className={`${getLinkClass("/Reviews-of-Users")} text-light`} to="/Reviews-of-Users">Reviews</Link>
             </li>
             
           </ul>
