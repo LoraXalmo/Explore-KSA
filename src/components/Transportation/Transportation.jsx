@@ -135,7 +135,7 @@ export default function Transportation() {
                     <strong>Contact:</strong> {transportationDetails.contactInfo}
                   </p>
                   <p className="text-dark">
-                    <strong>Price:</strong> SAR {transportationDetails.price}
+                    <strong>Price:</strong>  {transportationDetails.price} SAR
                   </p>
                 </div>
               )
